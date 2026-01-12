@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Progress Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        input:disabled + span {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6 sm:p-10 mb-8">
+        <div class="mb-8">
+            <label for="nameInput" class="block text-lg font-medium text-gray-700 mb-2">Your Name:</label>
+            <input type="text" id="nameInput" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your name">
+        </div>
+
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4 border-b-2 pb-2">Week 1</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <script>
+                    const daysW1 = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                    daysW1.forEach(day => {
+                        document.write(`
+                            <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4">${day}</h3>
+                                <div class="space-y-4">
+                                    ${[1, 2, 3, 4, 5, 6].map(p => {
+                                        const isFreeDefault = (day === "Wednesday" && p >= 4);
+                                        return `
+                                            <div class="border-l-2 border-indigo-200 pl-2">
+                                                <div class="text-xs font-bold text-gray-400 mb-1">Period ${p}</div>
+                                                <div class="flex flex-col space-y-1">
+                                                    <label class="flex items-center text-gray-600">
+                                                        <input type="checkbox" ${isFreeDefault ? 'checked disabled' : ''} 
+                                                            class="form-checkbox h-4 w-4 text-indigo-600 rounded" 
+                                                            data-day="Week 1 - ${day}" data-period="P${p}" data-type="Free" 
+                                                            onchange="togglePair(this)">
+                                                        <span class="ml-2">Free</span>
+                                                    </label>
+                                                    ${!isFreeDefault ? `
+                                                    <label class="flex items-center text-gray-600 italic">
+                                                        <input type="checkbox" 
+                                                            class="form-checkbox h-4 w-4 text-indigo-400 rounded" 
+                                                            data-day="Week 1 - ${day}" data-period="P${p}" data-type="Supervised Study" 
+                                                            onchange="togglePair(this)">
+                                                        <span class="ml-2 text-sm">Supervised Study</span>
+                                                    </label>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4 border-b-2 pb-2">Week 2</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <script>
+                    const daysW2 = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+                    daysW2.forEach(day => {
+                        document.write(`
+                            <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                                <h3 class="text-lg font-medium text-gray-800 mb-4">${day}</h3>
+                                <div class="space-y-4">
+                                    ${[1, 2, 3, 4, 5, 6].map(p => {
+                                        const isFreeDefault = (day === "Wednesday" && p >= 5);
+                                        return `
+                                            <div class="border-l-2 border-emerald-200 pl-2">
+                                                <div class="text-xs font-bold text-gray-400 mb-1">Period ${p}</div>
+                                                <div class="flex flex-col space-y-1">
+                                                    <label class="flex items-center text-gray-600">
+                                                        <input type="checkbox" ${isFreeDefault ? 'checked disabled' : ''} 
+                                                            class="form-checkbox h-4 w-4 text-indigo-600 rounded" 
+                                                            data-day="Week 2 - ${day}" data-period="P${p}" data-type="Free" 
+                                                            onchange="togglePair(this)">
+                                                        <span class="ml-2">Free</span>
+                                                    </label>
+                                                    ${!isFreeDefault ? `
+                                                    <label class="flex items-center text-gray-600 italic">
+                                                        <input type="checkbox" 
+                                                            class="form-checkbox h-4 w-4 text-emerald-500 rounded" 
+                                                            data-day="Week 2 - ${day}" data-period="P${p}" data-type="Assessment" 
+                                                            onchange="togglePair(this)">
+                                                        <span class="ml-2 text-sm">Assessment</span>
+                                                    </label>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+            <button id="saveButton" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                Save to JSON
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function togglePair(checkbox) {
+            const parent = checkbox.closest('.flex-col');
+            const other = parent.querySelector(`input[type="checkbox"]:not([data-type="${checkbox.dataset.type}"])`);
+            if (other) {
+                other.disabled = checkbox.checked;
+            }
+        }
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value.trim();
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const selections = [];
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selections.push({
+                        day: cb.dataset.day,
+                        period: cb.dataset.period,
+                        status: cb.dataset.type
+                    });
+                }
+            });
+
+            const data = {
+                name: name || "Anonymous",
+                selections: selections
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 4)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'weekly_progress.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+
+</body>
+</html>
